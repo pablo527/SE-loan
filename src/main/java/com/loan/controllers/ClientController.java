@@ -2,9 +2,8 @@ package com.loan.controllers;
 
 import com.loan.models.Credit;
 import com.loan.models.ResponseSystem;
+import com.loan.utils.Constantes;
 import com.loan.utils.formulas.DebtCapacity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -12,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 public class ClientController {
 
     @PostMapping(value="/sendCredit")
-    public ResponseEntity sendCredit (@RequestBody Credit credit){
+    public ResponseSystem sendCredit (@RequestBody Credit credit){
         boolean approved = DebtCapacity.createData(credit);
-        return new ResponseEntity<>(approved, HttpStatus.OK);
+        ResponseSystem response = new ResponseSystem();
+        System.out.println(Constantes.MSG);
+        response.setMsg(Constantes.MSG);
+        response.setApproved(approved);
+        return response;
     }
 
 }
